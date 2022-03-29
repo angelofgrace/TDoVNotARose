@@ -2,20 +2,6 @@
 <html>
 
 <head>
-  <!-- adding 8th Wall's custom AFrame Library, inlcudes AFrame -->
-  <script src="//cdn.8thwall.com/web/aframe/8frame-0.9.2.min.js"></script>
-  <!-- adding behind the scenes of our own 8th Wall Project,,,, that we paid for!!!!! -->
-  <script src="//apps.8thwall.com/xrweb?appKey=jfq5MCzTU8gyxP9eEV7Y5GIkgx41zOJbpJyg5b3ngeXjPfwGImNgpLDTN6BCXuWaB8oebe"></script>
-  <script>
-    // Register custom A-Frame components
-    import { tapPlaceComponent } from './tap-place'
-    // import { databaseHandler } from './db-handler'
-    AFRAME.registerComponent('tap-place', tapPlaceComponent)
-  </script>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Welcome to Firebase Hosting</title>
-
   <!-- set our firebase configuration -->
   <script defer src="./firebase_config.js"></script>
   <!-- update the version number as needed -->
@@ -36,6 +22,76 @@
     -->
   <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
+  <!-- adding 8th Wall's custom AFrame Library, inlcudes AFrame -->
+  <script src="//cdn.8thwall.com/web/aframe/8frame-0.9.2.min.js"></script>
+  <!-- accessing our private project in 8th Wall -->
+  <script src="//apps.8thwall.com/xrweb?appKey=jfq5MCzTU8gyxP9eEV7Y5GIkgx41zOJbpJyg5b3ngeXjPfwGImNgpLDTN6BCXuWaB8oebe"></script>
+
+
+  <script>
+// Component that places cacti where the ground is clicked
+  AFRAME.registerComponent('tap-place', {
+    init() {
+      const Firestore = require('@google-cloud/firestore');
+      const db = new Firestore({
+        projectId:'tdov-webvr-2022',
+        keyFilename: 'tdov-webvr-2022-firebase-adminsdk-xsfir-24b2c25810.json'
+      })
+      const ground = document.getElementById('ground')
+      ground.addEventListener('click', (event) => {
+        /* // Create new entity for the new object
+        const newElement = document.createElement('a-entity')
+        const testElement = document.createElement('a-box')
+  
+        // The raycaster gives a location of the touch in the scene
+        const touchPoint = event.detail.intersection.point
+        newElement.setAttribute('position', touchPoint)
+        testElement.setAttribute('position', touchPoint)
+  
+        // randomize rotation of new object
+        const randomYRotation = Math.random() * 360
+        newElement.setAttribute('rotation', `0 ${randomYRotation} 0`)
+  
+        // assign entity the rose id
+        const roseId = "newRose"
+        newElement.setAttribute('id', roseId)
+        
+        newElement.setAttribute('visible', 'true')
+        newElement.setAttribute('scale', '7 7 7')
+        newElement.setAttribute('color', '#FF00FF')
+  
+        newElement.setAttribute('shadow', {
+          receive: false,
+        })
+  
+        newElement.setAttribute('gltf-model', '#cactusModel')
+        this.el.sceneEl.appendChild(newElement) */
+
+        const newElementData = {
+          testField: 'TESTING'
+          /* model: '#cactusModel',
+          vectorPos: touchPoint */
+        }
+        const res = await db.collection('roses').doc().set(newElementData)
+
+        /* newElement.addEventListener('model-loaded', () => {
+          // Once the model is loaded, we are ready to show it popping in using an animation
+          newElement.setAttribute('visible', 'true')
+          newElement.setAttribute('animation', {
+            property: 'scale',
+            to: `7 7 7`,
+            easing: 'easeOutElastic',
+            dur: 800,
+          }) 
+        })
+      }, {once: true}) */
+    })
+  }})
+  </script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Not a Rose</title>
 </head>
 
 <body>
@@ -47,12 +103,12 @@
   defaultEnvironmentFloorColor: #FFF;
   defaultEnvironmentSkyBottomColor: #B4C4CC; 
   defaultEnvironmentSkyTopColor: #5ac8fa;
-  defaultEnvironmentSkyGradientStrength: 0.5;">
+  defaultEnvironmentSkyGradientStrength: 0.5;"> </a-scene>
 
     <!-- We can define assets here to be loaded when A-Frame initializes -->
     <a-assets>
-      <img id="groundTex" src="assets/sand.jpg">
-      <a-asset-item id="cactusModel" src="assets/cactus.glb"></a-asset-item>
+      <img id="groundTex" src="./assets/sand.jpg">
+      <a-asset-item id="cactusModel" src="./assets/cactus.glb"></a-asset-item>
     </a-assets>
 
     <!-- The raycaster will emit mouse events on scene objects specified with the cantap class -->
@@ -71,24 +127,24 @@
     shadowCameraBottom: -40;
     shadowCameraRight: 40;
     shadowCameraLeft: -40;
-    target: #camera" xrextras-attach="target: camera; offset: 8 15 4" position="1 4.3 2.5" shadow>
-    </a-entity>
+    target: #camera" position = "1 4.3 2.5" shadow xrextras-attach="target: camera; offset: 8 15 4"  position="1 4.3 2.5"></a-entity>
 
     <a-light type="ambient" intensity="0.5"></a-light>
+
+    <!-- <script>
+    const testObj = document.getElementById('testItem')
+      testObj.addEventListener('model-loaded', function () {
+      
+    })
+    </script> -->
 
     <!-- Adding the cantap class allows the ground to be clicked -->
     <a-box id="ground" class="cantap" scale="1000 2 1000" position="0 -0.99 0"
       material="shader: shadow; transparent: true; opacity: 0.4" shadow>
+    <a-entity gltf-model="#cactusModel" scale="8 8 8" id="testItem"></a-entity>
     </a-box>
   </a-scene>
 
-  <div id="message">
-    <h2>Welcome</h2>
-    <h1>Firebase Hosting Setup Complete</h1>
-    <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something
-      extraordinary!</p>
-    <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-  </div>
   <p id="load">Firebase SDK Loading&hellip;</p>
 
   <script>
@@ -127,6 +183,15 @@
         console.error(e);
         loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
       }
+
+      const fs = require('firebase-admin')
+      const serviceKey = require('tdov-webvr-2022-firebase-adminsdk-xsfir-24b2c25810.json')
+      fs.initializeApp({
+        credential: fs.credential.cert(serviceKey)
+      })
+      const db = fs.firestore()
+      db.collection('roses').doc('uniqueId').set({ testField: 'Testing' })
+      alert("Sent to DB")
     });
   </script>
 </body>
