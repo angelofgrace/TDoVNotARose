@@ -36,7 +36,7 @@ AFRAME.registerComponent('tap-place', tapPlaceComponent = {
       })
 
       newElement.setAttribute('gltf-model', '#cactusModel')
-      this.el.sceneEl.appendChild(newElement)
+      ground.appendChild(newElement)
 
       const newData = {
         model: "./rose",
@@ -45,12 +45,12 @@ AFRAME.registerComponent('tap-place', tapPlaceComponent = {
       }
       collection.add(newData).then(function (docRef) {
         // You can use the docRef.id now
-        console.log('Document ID ', docRef.id)
+        // console.log('Document ID ', docRef.id)
         collection.doc(docRef.id).get().then(function (doc) {
           let data = doc.data()
-          console.log(data.model)
+/*           console.log(data.model)
           console.log(data.texture)
-          console.log(data.vectorPos)
+          console.log(data.vectorPos) */
         })
       })
 
@@ -59,7 +59,7 @@ AFRAME.registerComponent('tap-place', tapPlaceComponent = {
         newElement.setAttribute('visible', 'true')
         newElement.setAttribute('animation', {
           property: 'scale',
-          to: `7 7 7`,
+          to: `${randomScale} `,
           easing: 'easeOutElastic',
           dur: 800,
         })
