@@ -10,6 +10,9 @@
 
     <script src="/tap-place.js"></script>
 
+    <!-- 3D text Aframe Component -->
+    <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script>
+
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,6 +28,7 @@
     <a-assets>
       <img id="groundTex" src="assets/sand.jpg">
       <a-asset-item id="cactusModel" src="assets/cactus.glb"></a-asset-item>
+      <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
     </a-assets>
 
     <!-- The raycaster will emit mouse events on scene objects specified with the cantap class -->
@@ -47,13 +51,13 @@
     </a-entity>
 
     <a-light type="ambient" intensity="0.5"></a-light>
+
+    <a-entity text-geometry="value: Tap to Add Your Rose" position="0 10 -20" bevelEnabled=true scale="2 2 2" material="color: #40E0D0"></a-entity>
 <!--     <a-entity gltf-model="#cactusModel" position="-10 0 -25" scale="5 5 5"></a-entity>
  -->    <!-- Adding the cantap class allows the ground to be clicked -->
     <a-box id="ground" class="cantap" scale="1000 1 1000" position="0 -10 0"
       material="shader: shadow; transparent: true; opacity: 0.25" shadow>
 
-    </a-box>
-    </a-box>
   </a-scene>
 
 
