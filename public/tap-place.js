@@ -28,15 +28,21 @@ AFRAME.registerComponent('tap-place', tapPlaceComponent = {
       const roseId = "newRose"
       newElement.setAttribute('id', roseId)
 
-      newElement.setAttribute('visible', 'false')
-      newElement.setAttribute('scale', '0.0001 0.0001 0.0001')
+      newElement.setAttribute('visible', 'true')
+      newElement.setAttribute('scale', '3 3 3')
 
       newElement.setAttribute('shadow', {
         receive: false,
       })
 
-      newElement.setAttribute('gltf-model', '#cactusModel')
-      ground.appendChild(newElement)
+/*       var modelOptions = [
+        "#cactusModel"
+      ]
+
+      const randomModel = modelOptions[Math.floor(Math.random()*modelOptions.length)];
+      console.log(randomModel) */
+      newElement.setAttribute('gltf-model', `#cactusModel`)
+      this.el.sceneEl.appendChild(newElement)
 
       const newData = {
         model: "./rose",
@@ -54,16 +60,19 @@ AFRAME.registerComponent('tap-place', tapPlaceComponent = {
         })
       })
 
-      newElement.addEventListener('model-loaded', () => {
+      const randomScale = Math.floor(Math.random() * (Math.floor(this.data.max) - Math.ceil(this.data.min)) + Math.ceil(this.data.min))
+
+/*       newElement.addEventListener('model-loaded', () => {
         // Once the model is loaded, we are ready to show it popping in using an animation
+        console.log("Model loaded")
         newElement.setAttribute('visible', 'true')
         newElement.setAttribute('animation', {
           property: 'scale',
-          to: `${randomScale} `,
+          to: `${randomScale}`,
           easing: 'easeOutElastic',
           dur: 800,
         })
-      })
+      }) */
     }, {once: true})
   },
 })

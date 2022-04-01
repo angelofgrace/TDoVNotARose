@@ -18,6 +18,8 @@ const app = firebase.initializeApp(firebaseConfig)
 const db = firebase.firestore()
 
 const roses = db.collection('roses')
+
+// iterate through roses, populating scene
 roses.where('model', '==', './rose').get().then(function (col) {
   col.docs.forEach(doc => {
     let data = doc.data()
@@ -38,7 +40,7 @@ roses.where('model', '==', './rose').get().then(function (col) {
     const roseId = "newRose"
     newElement.setAttribute('id', roseId)
 
-    let randomScale = Math.floor(Math.random() * (10 - 6 + 1) + 6)
+    let randomScale = Math.floor(Math.random() * (5 - 2 + 1) + 2)
     console.log(randomScale)
     newElement.setAttribute('scale', `${randomScale} ${randomScale} ${randomScale}`)
 
@@ -49,6 +51,6 @@ roses.where('model', '==', './rose').get().then(function (col) {
 
     var sceneEl = document.querySelector('a-scene')
     newElement.setAttribute('gltf-model', '#cactusModel')
-    ground.appendChild(newElement)
+    sceneEl.appendChild(newElement)
   })
 })
