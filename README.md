@@ -5,6 +5,7 @@ An Interactive Augmented Reality Installation
 Not a Rose is an augmented reality experience built with WebAR frameworks, hosted and integrated with Firebase and their Firestore database. Users view a field of roses in their surroundings, and are propmted to add their own rose by tapping the screen. Roses are populated from and added to the Firestore database using their relative Vector3 position to the floor. 
 
 # Usage
+"[DEPRECATED]"
 QR Codes are used for on-location viewing so that ground position stays mostly consistent across viewers, however the experience can be loaded by visitng [inconceivable.tech](https://inconceivable.tech/).
 
 # Screenshots
